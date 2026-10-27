@@ -15,7 +15,7 @@ jobs:
       - name: Download Video
         run: |
           # REPLACE THE URL BELOW with your direct video download link (.mp4)
-          wget -O video.mp4 "https://www.w3schools.com/html/mov_bbb.mp4"
+       wget -O video.mp4 "YOUR_DIRECT_VIDEO_LINK_HERE"
 
       - name: Start Streaming Loop
         run: |
