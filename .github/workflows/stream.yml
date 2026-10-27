@@ -1,0 +1,22 @@
+name: 24/7 YouTube Stream
+
+on:
+  workflow_dispatch: # Allows you to start it manually with a click
+
+jobs:
+  stream:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install FFmpeg
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg
+
+      - name: Download Video
+        run: |
+          # REPLACE THE URL BELOW with your direct video download link (.mp4)
+          wget -O video.mp4 "https://www.w3schools.com/html/mov_bbb.mp4"
+
+      - name: Start Streaming Loop
+        run: |
+          ffmpeg -re -stream_loop -1 -i video.mp4 -c:v libx264 -preset ultrafast -b:v 3000k -maxrate 3000k -bufsize 6000k -pix_fmt yuv420p -g 50 -c:a aac -b:a 128k -ar 44100 -f flv "rtmp://a.rtmp.youtube.com/live2/${{ secrets.YOUTUBE_STREAM_KEY }}"
